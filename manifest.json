@@ -1,0 +1,15 @@
+{
+  "name": "Coffee Ratio Calculator",
+  "short_name": "CoffeeRatio",
+  "start_url": "/coffee-ratio/",
+  "display": "standalone",
+  "background_color": "#1c1917",
+  "theme_color": "#d97706",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

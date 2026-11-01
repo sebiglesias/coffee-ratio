@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <!-- Google tag (gtag.js) GA4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2BNDBQP0W7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-2BNDBQP0W7');
+  </script>
+
+  <!-- Google AdSense Account Verification -->
+  <meta name="google-adsense-account" content="ca-pub-3381238987477190">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3381238987477190" crossorigin="anonymous"></script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Specialty Coffee Ratio Calculator & Barista Brew Timer</title>
+  <meta name="description" content="Calculate the exact coffee-to-water ratio for V60, French Press, AeroPress, Chemex, and Cold Brew. Includes grams/ounces conversion and interactive step-by-step pour timer.">
+  <meta name="keywords" content="coffee to water ratio calculator, chemex ratio, v60 ratio calculator, french press coffee calculator, pour over ratio grams, cold brew ratio">
+  <link rel="canonical" href="https://sebiglesias.com.ar/coffee-ratio/">
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#1c1917">
+  <link rel="icon" type="image/svg+xml" href="icon.svg">
+  <link rel="apple-touch-icon" href="icon.svg">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Specialty Coffee Ratio Calculator & Brew Timer">
+  <meta property="og:description" content="Dial in your pour-over with precise coffee-to-water ratios and step-by-step bloom timer.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://sebiglesias.com.ar/coffee-ratio/">
+  <meta property="og:image" content="https://sebiglesias.com.ar/coffee-ratio/icon.svg">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Coffee Ratio Calculator & Timer">
+  <meta name="twitter:description" content="Calculate water and coffee grams with barista precision.">
+
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Structured Data: WebApplication + FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "Specialty Coffee Ratio Calculator & Timer",
+        "url": "https://sebiglesias.com.ar/coffee-ratio/",
+        "applicationCategory": "LifestyleApplication",
+        "operatingSystem": "All",
+        "description": "Barista utility to calculate specialty coffee ratios (1:15 to 1:18) with step-by-step pour timer for Chemex, V60, AeroPress, and French Press.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is the golden ratio for drip and pour-over coffee?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The Specialty Coffee Association (SCA) golden cup standard is a 1:16 to 1:17 ratio (1 gram of coffee for every 16 to 17 grams of water). For a standard 12 oz mug (~350ml water), use approximately 21 to 22 grams of ground coffee."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What ratio should I use for French Press coffee?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "French Press immersion brewing uses a slightly stronger ratio between 1:12 and 1:15 with coarse grind. For 500ml of water, use 35 to 40 grams of coffee with a 4-minute steep time."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="wrap">
+    <div class="backlink-bar">
+      <a href="https://sebiglesias.com.ar" class="backlink">← sebiglesias.com.ar</a>
+    </div>
+
+    <header class="header">
+      <div class="header-badge">☕ Barista & Specialty Coffee Utility</div>
+      <h1>Coffee Ratio Calculator<span class="accent">.</span></h1>
+      <p class="sub">Dial in your grind, brew ratio & step-by-step pour timer</p>
+    </header>
+
+    <!-- Method Selection Tabs -->
+    <div class="methods-nav" role="tablist" id="methods-nav">
+      <button type="button" class="method-tab active" data-method="v60"><span>☕</span> V60 Cone</button>
+      <button type="button" class="method-tab" data-method="chemex"><span>⏳</span> Chemex</button>
+      <button type="button" class="method-tab" data-method="aeropress"><span>⚗️</span> AeroPress</button>
+      <button type="button" class="method-tab" data-method="frenchpress"><span>🏺</span> French Press</button>
+      <button type="button" class="method-tab" data-method="coldbrew"><span>❄️</span> Cold Brew</button>
+    </div>
+
+    <!-- Hero Results Card -->
+    <section class="card hero-card">
+      <div class="hero-grid">
+        <div class="hero-col">
+          <span class="hero-label">Ground Coffee</span>
+          <div class="hero-val-wrap">
+            <span class="hero-val" id="disp-coffee">18</span>
+            <span class="hero-unit">grams</span>
+          </div>
+          <span class="hero-sub" id="disp-coffee-oz">~0.63 oz</span>
+        </div>
+        <div class="hero-arrow">➔</div>
+        <div class="hero-col highlight">
+          <span class="hero-label">Total Water</span>
+          <div class="hero-val-wrap">
+            <span class="hero-val" id="disp-water">288</span>
+            <span class="hero-unit">ml / g</span>
+          </div>
+          <span class="hero-sub" id="disp-water-oz">~9.7 fl oz (1 mug)</span>
+        </div>
+      </div>
+
+      <div class="method-specs-bar" id="method-specs">
+        <span class="spec-item">Grind: <strong id="spec-grind">Medium-Fine</strong></span>
+        <span class="spec-item">Water Temp: <strong id="spec-temp">200°F - 205°F</strong></span>
+        <span class="spec-item">Brew Target: <strong id="spec-time">3:00 mins</strong></span>
+      </div>
+    </section>
+
+    <!-- Controls Card -->
+    <section class="card controls-card">
+      <div class="field-row">
+        <div class="field-group">
+          <label for="coffee-input">Base Amount (Coffee or Water)</label>
+          <div class="input-toggle-wrap">
+            <input type="number" id="coffee-input" value="18" min="5" max="300" step="1">
+            <select id="calc-mode">
+              <option value="by-coffee" selected>Grams Coffee</option>
+              <option value="by-water">Total Water (ml)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label for="ratio-slider">Brew Ratio: <strong id="ratio-label">1:16</strong></label>
+          <input type="range" id="ratio-slider" min="10" max="20" step="1" value="16">
+          <div class="slider-ticks">
+            <span>1:10 (Strong)</span>
+            <span>1:16 (Standard)</span>
+            <span>1:20 (Delicate)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Step-by-Step Timer -->
+    <section class="card timer-card">
+      <h2>Step-by-Step Brew Timer</h2>
+      <div class="timer-display">
+        <span class="timer-clock" id="timer-clock">00:00</span>
+        <span class="timer-target" id="timer-target">/ 03:00</span>
+      </div>
+
+      <div class="timer-current-step" id="timer-step-desc">
+        Press Start when ready to pour hot water.
+      </div>
+
+      <div class="timer-actions">
+        <button type="button" class="btn-timer start" id="btn-timer-toggle">Start Timer</button>
+        <button type="button" class="btn-timer reset" id="btn-timer-reset">Reset</button>
+      </div>
+
+      <div class="brew-timeline" id="brew-timeline">
+        <!-- Steps injected dynamically -->
+      </div>
+    </section>
+
+    <!-- AdSense Responsive Placement -->
+    <div class="adsense-wrap" style="text-align: center; margin: 2rem 0;">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-3381238987477190"
+           data-ad-slot="auto"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+
+    <!-- FAQ Section -->
+    <section class="card faq-section">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-item">
+        <h3>Why is weighing coffee in grams better than tablespoons?</h3>
+        <p>Coffee beans vary significantly in density depending on origin and roast profile. Dark roasts are lighter and less dense than light roasts; 2 tablespoons of dark roast might weigh 11 grams while light roast weighs 15 grams. A $15 digital gram scale guarantees consistent extraction every morning.</p>
+      </div>
+      <div class="faq-item">
+        <h3>What is the coffee "Bloom" phase?</h3>
+        <p>Fresh roasted coffee contains trapped carbon dioxide gas ($CO_2$). Pouring twice the weight of coffee in hot water (e.g. 50g water for 25g coffee) and waiting 45 seconds lets the gases release, ensuring the water extracts soluble coffee compounds evenly without channeling.</p>
+      </div>
+    </section>
+
+    <footer>
+      <p>Part of the <a href="https://sebiglesias.com.ar">sebiglesias.com.ar</a> utility tools suite.</p>
+      <p class="copy">Free specialty coffee utility · For home baristas</p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
