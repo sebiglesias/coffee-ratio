@@ -20,6 +20,17 @@
   <meta name="description" content="Calculate the exact coffee-to-water ratio for V60, French Press, AeroPress, Chemex, and Cold Brew. Includes grams/ounces conversion and interactive step-by-step pour timer.">
   <meta name="keywords" content="coffee to water ratio calculator, chemex ratio, v60 ratio calculator, french press coffee calculator, pour over ratio grams, cold brew ratio">
   <link rel="canonical" href="https://sebiglesias.com.ar/coffee-ratio/">
+<link rel="alternate" hreflang="en" href="https://sebiglesias.com.ar/coffee-ratio/">
+<link rel="alternate" hreflang="es" href="https://sebiglesias.com.ar/coffee-ratio/?lang=es">
+<link rel="alternate" hreflang="de" href="https://sebiglesias.com.ar/coffee-ratio/?lang=de">
+<link rel="alternate" hreflang="fr" href="https://sebiglesias.com.ar/coffee-ratio/?lang=fr">
+<link rel="alternate" hreflang="it" href="https://sebiglesias.com.ar/coffee-ratio/?lang=it">
+<link rel="alternate" hreflang="pt" href="https://sebiglesias.com.ar/coffee-ratio/?lang=pt">
+<link rel="alternate" hreflang="nl" href="https://sebiglesias.com.ar/coffee-ratio/?lang=nl">
+<link rel="alternate" hreflang="sv" href="https://sebiglesias.com.ar/coffee-ratio/?lang=sv">
+<link rel="alternate" hreflang="da" href="https://sebiglesias.com.ar/coffee-ratio/?lang=da">
+<link rel="alternate" hreflang="pl" href="https://sebiglesias.com.ar/coffee-ratio/?lang=pl">
+<link rel="alternate" hreflang="x-default" href="https://sebiglesias.com.ar/coffee-ratio/">
 
   <!-- PWA -->
   <link rel="manifest" href="manifest.json">
@@ -91,8 +102,20 @@
 </head>
 <body>
   <div class="wrap">
-    <div class="backlink-bar">
+    <div class="backlink-bar" style="display:flex;align-items:center;justify-content:space-between">
       <a href="https://sebiglesias.com.ar" class="backlink">← sebiglesias.com.ar</a>
+      <select id="lang-select" aria-label="Language" style="background:#24221C;border:1px solid rgba(242,239,230,.18);color:#F2EFE6;font-family:'JetBrains Mono',monospace;font-size:.72rem;padding:3px 6px;border-radius:3px;cursor:pointer;margin-left:auto">
+  <option value="en">🇺🇸 EN</option>
+  <option value="es">🇪🇸 ES</option>
+  <option value="de">🇩🇪 DE</option>
+  <option value="fr">🇫🇷 FR</option>
+  <option value="it">🇮🇹 IT</option>
+  <option value="pt">🇵🇹 PT</option>
+  <option value="nl">🇳🇱 NL</option>
+  <option value="sv">🇸🇪 SV</option>
+  <option value="da">🇩🇰 DA</option>
+  <option value="pl">🇵🇱 PL</option>
+</select>
     </div>
 
     <header class="header">
@@ -243,5 +266,41 @@
   </div>
 
   <script src="app.js"></script>
+
+<script>
+/* I18N_AUTO_ENGINE */
+(function(){
+  const DICT = {"en": {"title": "Coffee Ratio Calculator<span class='accent'>.</span>", "sub": "Dial in your grind, brew ratio & step-by-step pour timer"}, "es": {"title": "Calculadora Ratio de Café<span class='accent'>.</span>", "sub": "Proporción gramos de café y agua para V60, Prensa Francesa, Chemex y AeroPress"}, "de": {"title": "Kaffee-Wasser-Verhältnis Rechner<span class='accent'>.</span>", "sub": "Präzise Gramm-Dosierung & Brüh-Timer für Handfilter V60, French Press & Chemex"}, "fr": {"title": "Calculateur Ratio Café & Eau<span class='accent'>.</span>", "sub": "Dosage précis en grammes et minuteur barista pour V60, Chemex et Piston"}, "it": {"title": "Calcolatore Rapporto Caffè Acqua<span class='accent'>.</span>", "sub": "Proporzione grammi caffè e acqua con timer per V60, French Press e AeroPress"}, "pt": {"title": "Calculadora Proporção de Café<span class='accent'>.</span>", "sub": "Gramas de café e água com cronômetro barista para V60, Prensa Francesa e Chemex"}, "nl": {"title": "Koffie-Water Verhouding Calculator<span class='accent'>.</span>", "sub": "Precieze grammen en barista timer voor V60 pour-over, French Press & AeroPress"}, "sv": {"title": "Kaffe-Vatten-Ratio Kalkylator<span class='accent'>.</span>", "sub": "Exakta gram kaffe per dl/ml vatten & bryggtimer för V60, Franskpress & Chemex"}, "da": {"title": "Kaffe-Vand-Forhold Beregner<span class='accent'>.</span>", "sub": "Præcis dosering i gram og pour-over timer til V60, Stempelkande & Chemex"}, "pl": {"title": "Kalkulator Proporcji Kawy i Wody<span class='accent'>.</span>", "sub": "Dokładne gramy i stoper parzenia dla dripa V60, Chemex, AeroPress i French Press"}};
+  const h1El = document.querySelector('h1');
+  const subEl = document.querySelector('.sub');
+  const selEl = document.getElementById('lang-select');
+  function applyLang(lang) {
+    const entry = DICT[lang] || DICT.en;
+    document.documentElement.lang = lang;
+    if (h1El && entry.title) h1El.innerHTML = entry.title;
+    if (subEl && entry.sub) subEl.textContent = entry.sub;
+    if (lang !== 'en' && entry.sub) {
+      document.title = h1El ? (h1El.textContent + ' — ' + entry.sub) : entry.sub;
+    }
+  }
+  const params = new URLSearchParams(window.location.search);
+  const init = params.get('lang') || localStorage.getItem('coffee-ratio-lang') || 'en';
+  const valid = DICT[init] ? init : 'en';
+  if (selEl) {
+    selEl.value = valid;
+    selEl.addEventListener('change', function(e) {
+      const nl = e.target.value;
+      localStorage.setItem('coffee-ratio-lang', nl);
+      const u = new URL(window.location.href);
+      if (nl === 'en') u.searchParams.delete('lang');
+      else u.searchParams.set('lang', nl);
+      window.history.replaceState({}, '', u);
+      applyLang(nl);
+    });
+  }
+  applyLang(valid);
+})();
+</script>
+
 </body>
 </html>
